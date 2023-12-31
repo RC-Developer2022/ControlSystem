@@ -8,4 +8,8 @@ public interface IPersonService
     Task<IEnumerable<PersonDTO>> GetAllPerson();
     Task<PersonDTO> GetById(string id);
     Task<PersonDTO> GetByName(string name);
+
+    Task AddPerson(PersonDTO personDTO);
+    Task DeletePerson(string id);
+    Task Update(PersonDTO personDTO);
 }
