@@ -28,10 +28,10 @@ public sealed class PersonPersistence : IPersonPersistence
                     .FirstOrDefaultAsync();
     }
 
-    public async Task<Person> GetByName(string name)
+    public async Task<IEnumerable<Person>> GetByName(string name)
     {
         return await _dbSet
                     .Where(x => x.Name.Equals(name))
-                    .FirstOrDefaultAsync();
+                    .ToListAsync();
     }
 }

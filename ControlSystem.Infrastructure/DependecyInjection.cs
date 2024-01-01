@@ -1,6 +1,8 @@
 ﻿using ControlSystem.Infrastructure.Context;
 using ControlSystem.Infrastructure.Core.Interfaces;
+using ControlSystem.Infrastructure.Core.Interfaces.Base;
 using ControlSystem.Infrastructure.Services;
+using ControlSystem.Infrastructure.Services.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,8 @@ public static class DependecyInjection
             options.UseNpgsql(configuration.GetConnectionString("Default"))
         );
         services.AddScoped<IPersonPersistence, PersonPersistence>();
+        services.AddScoped(typeof(IGeneralPersistence<>), typeof(GeneralPersistence<>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace ControlSystem.Infrastructure.Core.Interfaces.Base;
+﻿using ControlSystem.Domain;
 
-public interface IGeneralPersistence
+namespace ControlSystem.Infrastructure.Core.Interfaces.Base;
+
+public interface IGeneralPersistence<T> where T : Entity
 {
-    Task AddAsync<T>(T entity);
-    Task Update<T>(T entity);
-    Task Delete<T>(T entity);
+    Task AddAsync(T entity);
+    Task Update(T entity);
+    Task Delete(T entity);
 }

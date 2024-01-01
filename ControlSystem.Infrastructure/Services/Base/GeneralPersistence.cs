@@ -1,21 +1,31 @@
-﻿using ControlSystem.Infrastructure.Core.Interfaces.Base;
+﻿using ControlSystem.Domain;
+using ControlSystem.Infrastructure.Context;
+using ControlSystem.Infrastructure.Core.Interfaces.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControlSystem.Infrastructure.Services.Base;
 
-public class GeneralPersistence(IGeneralPersistence _generalPersistence) : IGeneralPersistence
+public class GeneralPersistence<T> : IGeneralPersistence<T> where T : Entity
 {
-    public async Task AddAsync<T>(T entity)
+    private readonly SystemContext _context;
+    private readonly DbSet<T> _dbSet;
+    public GeneralPersistence(SystemContext context)
     {
-        await _generalPersistence.AddAsync(entity);
+        _dbSet = context.Set<T>();
+        _context = context;
+    }
+    public async Task AddAsync(T entity)
+    {
+        await _dbSet.AddAsync(entity);
     }
 
-    public Task Delete<T>(T entity)
+    public async Task Delete(T entity)
     {
-        return _generalPersistence.Delete(entity);
+        _dbSet.Remove(entity);
     }
 
-    public Task Update<T>(T entity)
+    public async Task Update(T entity)
     {
-        return _generalPersistence.Update(entity);
+        _dbSet.Update(entity);
     }
 }

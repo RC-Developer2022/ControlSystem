@@ -6,5 +6,5 @@ public interface IPersonPersistence
 {
     Task<IEnumerable<Person>> GetAllPerson();
     Task<Person> GetById(Guid id);
-    Task<Person> GetByName(string name);
+    Task<IEnumerable<Person>> GetByName(string name);
 }

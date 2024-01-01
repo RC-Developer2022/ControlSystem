@@ -7,7 +7,7 @@ public interface IPersonService
 {
     Task<IEnumerable<PersonDTO>> GetAllPerson();
     Task<PersonDTO> GetById(string id);
-    Task<PersonDTO> GetByName(string name);
+    Task<IEnumerable<PersonDTO>> GetByName(string name);
 
     Task AddPerson(PersonDTO personDTO);
     Task DeletePerson(string id);
