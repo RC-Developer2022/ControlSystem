@@ -8,7 +8,10 @@ public static class MapRoutesPerson
 {
     public static void MapPerson(this WebApplication app)
     {
-        app.MapGet("/Persons", async (
+
+        var group = app.MapGroup("/Persons");
+
+        group.MapGet("", async (
             [FromServices] IPersonService service
             ) =>
         {
@@ -17,8 +20,8 @@ public static class MapRoutesPerson
         .WithOpenApi()
         .WithName("Persons");
 
-        
-        app.MapGet("/Person/{id}", async (
+
+        group.MapGet("{id}", async (
             [FromRoute] string id, 
             [FromServices] IPersonService service
             ) =>
@@ -28,7 +31,7 @@ public static class MapRoutesPerson
         .WithOpenApi()
         .WithName("Person");
 
-        app.MapGet("/Persons/{name}", async (
+        group.MapGet("{name}", async (
             [FromRoute] string name,
             [FromServices]IPersonService services) => 
         {
@@ -37,7 +40,7 @@ public static class MapRoutesPerson
         .WithOpenApi()
         .WithName("Persons name");
 
-        app.MapPost("/Persons", async (
+        group.MapPost("", async (
             [FromServices]IPersonService service, 
             [FromBody] PersonDTO person
             ) =>
@@ -48,5 +51,27 @@ public static class MapRoutesPerson
         })
         .WithOpenApi()
         .WithName("Add Persons");
+
+        group.MapPut("", async (
+            [FromServices] IPersonService service,
+            [FromBody] PersonDTO person
+            ) => 
+        {
+            await service.UpdatePerson(person);
+            Results.Ok("Update Person success");
+        })
+        .WithOpenApi()
+        .WithName("Update Persons");
+
+        group.MapDelete("{id}", async (
+            [FromServices] IPersonService service,
+            [FromRoute] string id
+            ) => 
+        {
+            await service.DeletePerson(id);
+            Results.Ok("Delete person success");
+        })
+        .WithOpenApi()
+        .WithName("Delete Persons");
     }
 }

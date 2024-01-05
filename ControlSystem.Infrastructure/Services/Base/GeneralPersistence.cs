@@ -11,8 +11,9 @@ public class GeneralPersistence<T> : IGeneralPersistence<T> where T : Entity
     private readonly DbSet<T> _dbSet;
     public GeneralPersistence(SystemContext context)
     {
-        _dbSet = context.Set<T>();
         _context = context;
+        _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        _dbSet = _context.Set<T>();
     }
     public async Task AddAsync(T entity)
     {

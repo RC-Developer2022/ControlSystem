@@ -11,5 +11,5 @@ public interface IPersonService
 
     Task AddPerson(PersonDTO personDTO);
     Task DeletePerson(string id);
-    Task Update(PersonDTO personDTO);
+    Task UpdatePerson(PersonDTO personDTO);
 }

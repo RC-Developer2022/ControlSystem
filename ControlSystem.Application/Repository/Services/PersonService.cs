@@ -38,7 +38,7 @@ public class PersonService : IPersonService
         }
         catch (Exception)
         {
-
+            await _unitOfWork.Rollback();
             throw;
         }
     }
@@ -47,13 +47,14 @@ public class PersonService : IPersonService
     {
         try
         {
+
             var person = await _personPersistence.GetById(Guid.Parse(id));
 
             return _mapper.MapperDTO(person);
         }
         catch (Exception)
         {
-
+            await _unitOfWork.Rollback();
             throw;
         }
     }
@@ -70,6 +71,7 @@ public class PersonService : IPersonService
         catch (Exception)
         {
 
+            await _unitOfWork.Rollback();
             throw;
         }
     }
@@ -78,13 +80,17 @@ public class PersonService : IPersonService
     {
         try
         {
-            await _generalPersistence.AddAsync(_mapper.MapperEntity(personDTO));
-            await _unitOfWork.Commit();
+            if (personDTO.Id == null)
+            {
+                personDTO.Id = Guid.NewGuid().ToString();
+                var person = _mapper.MapperEntity(personDTO);
+                await _generalPersistence.AddAsync(person);
+                await _unitOfWork.Commit();
+            }
         }
         catch (Exception)
         {
-
-            throw;
+            await _unitOfWork.Rollback();
         }
     }
 
@@ -99,10 +105,10 @@ public class PersonService : IPersonService
         catch (Exception)
         {
 
-            throw;
+            await _unitOfWork.Rollback();
         }
     }
-    public async Task Update(PersonDTO personDTO)
+    public async Task UpdatePerson(PersonDTO personDTO)
     {
         try
         {
@@ -112,7 +118,7 @@ public class PersonService : IPersonService
         catch (Exception)
         {
 
-            throw;
+            await _unitOfWork.Rollback();
         }
     }
 }
