@@ -1,9 +1,8 @@
-﻿using ControlSystem.Application.DTO;
-using ControlSystem.Application.Mapper.Interfaces;
+﻿using ControlSystem.Application.Core.DTO;
+using ControlSystem.Application.Core.Mapper.Interfaces;
 using ControlSystem.Domain.Entities;
-using System;
 
-namespace ControlSystem.Application.Mapper.Services;
+namespace ControlSystem.Application.Core.Mapper.Services;
 
 public class MapperPerson : IMapperPerson
 {
@@ -13,7 +12,7 @@ public class MapperPerson : IMapperPerson
         {
             Id = person.Id.ToString(),
             Name = person.Name,
-            Age = person.Age,   
+            Age = person.Age,
             BirthDay = person.BirthDay,
             Identity = person.Identity,
             IndividualRegistration = person.IndividualRegistration,

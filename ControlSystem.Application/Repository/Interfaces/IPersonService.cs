@@ -1,5 +1,4 @@
-﻿using ControlSystem.Application.DTO;
-using ControlSystem.Domain.Entities;
+﻿using ControlSystem.Application.Core.DTO;
 
 namespace ControlSystem.Application.Repository.Interfaces;
 

@@ -9,7 +9,7 @@ public class Person : Entity
     public string IndividualRegistration { get; set; }
     public bool Working { get; set; } = false;
 
-    public Person() {}
+    public Person() { }
 
     public Person(string name, int age, DateTime birthDay, string identity, string individualRegistration, bool working)
     {

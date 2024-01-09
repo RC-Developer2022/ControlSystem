@@ -11,12 +11,12 @@ namespace ControlSystem.Infrastructure;
 
 public static class DependecyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) 
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<SystemContext>(options =>
             options
             .UseNpgsql(configuration.GetConnectionString("Default"))
-            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution)
         );
         services.AddScoped<IPersonPersistence, PersonPersistence>();
         services.AddScoped(typeof(IGeneralPersistence<>), typeof(GeneralPersistence<>));

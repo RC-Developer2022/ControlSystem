@@ -1,5 +1,5 @@
-﻿using ControlSystem.Application.DTO;
-using ControlSystem.Application.Mapper.Interfaces;
+﻿using ControlSystem.Application.Core.DTO;
+using ControlSystem.Application.Core.Mapper.Interfaces;
 using ControlSystem.Application.Repository.Interfaces;
 using ControlSystem.Domain.Entities;
 using ControlSystem.Infrastructure.Core.Interfaces;

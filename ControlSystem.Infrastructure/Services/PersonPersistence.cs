@@ -18,7 +18,7 @@ public sealed class PersonPersistence : IPersonPersistence
     public async Task<IEnumerable<Person>> GetAllPerson()
     {
         return await _dbSet.ToListAsync();
-        
+
     }
 
     public async Task<Person> GetById(Guid id)
@@ -31,7 +31,7 @@ public sealed class PersonPersistence : IPersonPersistence
     public async Task<IEnumerable<Person>> GetByName(string name)
     {
         return await _dbSet
-                    .Where(x => x.Name.Equals(name))
+                    .Where(x => x.Name.StartsWith(name))
                     .ToListAsync();
     }
 }

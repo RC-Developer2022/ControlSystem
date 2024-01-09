@@ -1,4 +1,4 @@
-﻿using ControlSystem.Application.DTO;
+﻿using ControlSystem.Application.Core.DTO;
 using ControlSystem.Application.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,8 +21,8 @@ public static class MapRoutesPerson
         .WithName("Persons");
 
 
-        group.MapGet("{id}", async (
-            [FromRoute] string id, 
+        group.MapGet("id/{id}", async (
+            [FromRoute] string id,
             [FromServices] IPersonService service
             ) =>
         {
@@ -32,8 +32,9 @@ public static class MapRoutesPerson
         .WithName("Person");
 
         group.MapGet("{name}", async (
-            [FromRoute] string name,
-            [FromServices]IPersonService services) => 
+            [FromServices] IPersonService services,
+            [FromRoute] string name
+            ) =>
         {
             return Results.Ok(await services.GetByName(name));
         })
@@ -41,7 +42,7 @@ public static class MapRoutesPerson
         .WithName("Persons name");
 
         group.MapPost("", async (
-            [FromServices]IPersonService service, 
+            [FromServices] IPersonService service,
             [FromBody] PersonDTO person
             ) =>
         {
@@ -55,7 +56,7 @@ public static class MapRoutesPerson
         group.MapPut("", async (
             [FromServices] IPersonService service,
             [FromBody] PersonDTO person
-            ) => 
+            ) =>
         {
             await service.UpdatePerson(person);
             Results.Ok("Update Person success");
@@ -66,7 +67,7 @@ public static class MapRoutesPerson
         group.MapDelete("{id}", async (
             [FromServices] IPersonService service,
             [FromRoute] string id
-            ) => 
+            ) =>
         {
             await service.DeletePerson(id);
             Results.Ok("Delete person success");

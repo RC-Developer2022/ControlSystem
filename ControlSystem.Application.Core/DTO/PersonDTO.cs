@@ -1,4 +1,4 @@
-﻿namespace ControlSystem.Application.DTO;
+﻿namespace ControlSystem.Application.Core.DTO;
 
 public class PersonDTO
 {

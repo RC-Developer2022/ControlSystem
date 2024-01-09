@@ -1,7 +1,7 @@
-﻿using ControlSystem.Application.DTO;
+﻿using ControlSystem.Application.Core.DTO;
 using ControlSystem.Domain.Entities;
 
-namespace ControlSystem.Application.Mapper.Interfaces;
+namespace ControlSystem.Application.Core.Mapper.Interfaces;
 
 public interface IMapperPerson
 {
